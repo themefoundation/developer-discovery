@@ -10,7 +10,7 @@ jQuery( document ).ready( function( $ ) {
 	addWPelements();
 
 	// Adds links to expand descovery info.
-	$('.dd-definition').prepend('<a class="thmfdn-discovery-expand" href="#"></a>');
+	$('.dd-definition').append('<a class="thmfdn-discovery-expand" href="#"></a>');
 
 	// Populates the data display element.
 	displayDataTree();
@@ -120,7 +120,7 @@ jQuery( document ).ready( function( $ ) {
 					className += ' extension';
 				}
 			}
-			display += '<a href="#" class="' + className + '" data-discovery-popup=\'' + JSON.stringify(part) + '\'>' + part['handle'] + '</a>';
+			display += '<a href="#" class="' + className + '" data-discovery-popup=\'' + JSON.stringify(part) + '\'><span>' + part['handle'] + '</span></a>';
 			// $.each(part, function( title, value ) {
 				// Just in case deeper details are needed here?
 			// });

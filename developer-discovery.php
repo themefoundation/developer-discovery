@@ -181,22 +181,26 @@ class THMFDN_Developer_Discovery {
 	public function get_particle_details( $id ) {
 		global $thmfdn_particles;
 
-		// Gets path and file name.
-		$reflection = new ReflectionFunction($thmfdn_particles->particles[$id]['function']);
-		$details['path'] = $reflection->getFileName();
-		$details['handle'] = basename( $details['path'] );
-		if ( !empty( $thmfdn_particles->particles[$id]['display'] ) ) {
-			$details['display'] = $thmfdn_particles->particles[$id]['display'];
-		}
+		$defaults = array(
+			'id' => '',
+			'name' => '',
+			'description' => __( '', 'thmfdn_textdomain' ),
+			'reflection' => '',
+			'display' => '',
+		);
 
+		$particle = wp_parse_args( $thmfdn_particles->particles[$id]->particle, $defaults );
+		$particle['path'] = $particle['reflection']->getFileName();
+		$details['handle'] = basename( $particle['path'] );
+		$details['display'] = $particle['display'];
 
 		// Sets up args capture.
 		$arg_string = '';
 		$arg_first = true;
 
 		// Loops through args.
-		if ( !empty(  $thmfdn_particles->particles[$id]['args'] ) && is_array(  $thmfdn_particles->particles[$id]['args'] ) ) {
-			foreach ( $thmfdn_particles->particles[$id]['args'] as $arg ) {
+		if ( !empty(  $particle['args'] ) && is_array(  $particle['args'] ) ) {
+			foreach ( $particle['args'] as $arg ) {
 				if ( $arg_first ) {
 					$arg_string .= '$' . $arg;
 					$arg_first = false;
@@ -208,11 +212,11 @@ class THMFDN_Developer_Discovery {
 
 		// Gets additional particle details
 		$details['table']['Type'] = 'Particle';
-		$details['table']['Title'] = $thmfdn_particles->particles[$id]['title'];
-		$details['table']['Description'] = $thmfdn_particles->particles[$id]['description'];
-		$path_array = explode( 'wp-content/', $details['path'] );
+		$details['table']['Title'] = $particle['name'];
+		$details['table']['Description'] = $particle['description'];
+		$path_array = explode( 'wp-content/', $particle['path'] );
  		$details['table']['Path'] = end( $path_array );
-		$details['table']['Function'] = $thmfdn_particles->particles[$id]['function'] . '( ' . $arg_string . ' )';
+		// $details['table']['Function'] = $particle['function'] . '( ' . $arg_string . ' )';
 		// $details['table']['Line #'] = $reflection->getStartLine();
 
 		return $details;
