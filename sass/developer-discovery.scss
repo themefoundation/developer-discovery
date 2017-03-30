@@ -190,7 +190,7 @@
 }
 
 /* Creates arrow for pointing to current element. */
-.dd-definition.dd-current:before{
+.dd-definition.dd-current:before {
 	width: 0;
 	height: 0;
 	border-left: 6px solid transparent;
@@ -213,7 +213,15 @@
 	/*display: none;*/
 }
 
-.dd-definition.dd-current > .thmfdn-discovery-expand{
+.dd-definition.dd-invert.dd-current:before {
+	top: 34px;
+}
+
+.dd-definition.dd-invert.dd-current > .thmfdn-discovery-expand {
+	top: 2px;
+}
+
+.dd-definition.dd-current > .thmfdn-discovery-expand {
 	background: #444444 url(info.png) no-repeat center center;
 	/*border: 1px solid #333333;*/
 	/*border-bottom-right-radius: 40px;*/

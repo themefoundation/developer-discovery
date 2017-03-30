@@ -15,6 +15,17 @@ jQuery( document ).ready( function( $ ) {
 	// Populates the data display element.
 	displayDataTree();
 
+	// Invert .thmfdn-discovery-expand links when too close to header
+	invertExpansionLinks();
+
+	function invertExpansionLinks() {
+		$('.dd-definition').each(function( index ) {
+			if ( $(this).offset().top < 100 ) {
+				$(this).addClass('dd-invert');
+			}
+		});
+	}
+
 	/**
 	 * Gets the tree of developer discoverable data
 	 *
