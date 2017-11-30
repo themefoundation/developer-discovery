@@ -165,6 +165,12 @@
   /*border: 1px solid rgba( 0, 0, 0, 0.25 );*/
   /*display: none;*/ }
 
+.dd-definition.dd-invert.dd-current:before {
+  top: 34px; }
+
+.dd-definition.dd-invert.dd-current > .thmfdn-discovery-expand {
+  top: 2px; }
+
 .dd-definition.dd-current > .thmfdn-discovery-expand {
   background: #444444 url(info.png) no-repeat center center;
   /*border: 1px solid #333333;*/

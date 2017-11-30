@@ -281,10 +281,17 @@ function thmfdn_developer_discovery_toggle( $wp_admin_bar ) {
 			$toggled_discovery_status = 'off';
 			$button_title = 'Turn Discovery Off';
 		}
+
+		if ( is_home() ) {
+			$url = get_permalink( get_option( 'page_for_posts' ) );
+		} else {
+			$url = get_permalink();
+		}
+
 		$args = array(
 			'id' => 'dd-toggle',
 			'title' => $button_title,
-			'href' => get_permalink() . '?developer-discovery-status=' . $toggled_discovery_status,
+			'href' =>  $url . '?developer-discovery-status=' . $toggled_discovery_status,
 			'parent' => 'top-secondary',
 			'meta' => array(
 				'class' => 'dd-display-toggle'
