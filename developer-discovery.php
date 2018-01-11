@@ -283,15 +283,26 @@ function thmfdn_developer_discovery_toggle( $wp_admin_bar ) {
 			$button_title = 'Turn Discovery Off';
 		}
 
-		$current_url = add_query_arg( $_SERVER['QUERY_STRING'], '', home_url( $wp->request ) );
-		$query = parse_url($current_url, PHP_URL_QUERY);
 
-		if ( $query ) {
-			$url .= $current_url . '&developer-discovery-status=' . $toggled_discovery_status;
+
+		if ( $_SERVER['QUERY_STRING'] ) {
+			$prefix = '?';
+			$url = home_url( $wp->request ) . '/';
+			$query_args_array = array();
+			parse_str( $_SERVER['QUERY_STRING'], $query_args_array );
+
+			foreach ( $query_args_array as $key => $value ) {
+				if ( $key != 'developer-discovery-status' ) {
+					$url .= $prefix;
+					$url .= $key . '=' . $value;
+					$prefix = '&';
+				}
+			}
+
+			$url .= $prefix . 'developer-discovery-status=' . $toggled_discovery_status;
 		} else {
-			$url .= $current_url . '?developer-discovery-status=' . $toggled_discovery_status;
+			$url .= home_url( $wp->request ) . '?developer-discovery-status=' . $toggled_discovery_status;
 		}
-
 
 		$args = array(
 			'id' => 'dd-toggle',
